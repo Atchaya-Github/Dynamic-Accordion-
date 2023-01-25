@@ -1,0 +1,34 @@
+<button mat-raised-button color="warn" (click)="openAllPanels($event)">Open All Panels</button>|
+|<button mat-raised-button color="warn" (click)="closeAllPanels($event)">Close All Panels</button>
+<mat-accordion
+[multi]="true"
+#accordion="matAccordion">
+
+  <mat-expansion-panel 
+  [disabled]="panel.isDisabled"
+  [expanded]="panel.isExpanded"
+  [hideToggle]="true"
+  (opened)="beforePanelOpened(panel)"
+  (closed)="beforePanelClosed(panel)"
+  (afterCollapse)="afterPanelClosed($event)"
+  (afterExpand)="afterPanelOpened($event)"
+
+  *ngFor="let panel of accordionList"
+  #mapanel="matExpansionPanel"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <b>Title: {{panel.title}}</b>
+      </mat-panel-title>
+      <mat-panel-description>
+        
+        Currently I am {{panel.isExpanded ? 'open' : 'closed'}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    
+    <p>{{panel.description}}</p>
+    <mat-action-row>
+        <button mat-flat-button (click)="mapanel.close()">Click to close</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
